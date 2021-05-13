@@ -36,17 +36,18 @@
   initAction();
 
   favoriteBooks = [];
-
+  console.log(favoriteBooks)
   function initAction (){
 
-    const booksListImage = document.querySelectorAll(select.panel.productsImage);
-
+    const booksListImage = document.querySelectorAll(select.panel.productsList + ' ' + select.panel.productsImage);
+    console.log(booksListImage)
     for (let bookImage of booksListImage){
-    bookImage.addEventListener('dblclick',function(event){
-      event.preventDefault();
-      bookImage.classList.add('favorite');
-      console.log(bookImage)
-    });
+      bookImage.addEventListener('dblclick',function(event){
+        event.preventDefault();
+        bookImage.classList.add('favorite');
+        
+        favoriteBooks.push(bookImage);
+      });
    
 
     }
