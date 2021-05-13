@@ -30,29 +30,31 @@
       //console.log('kontener z lista ksiazek:',menuContainer);
       menuContainer.appendChild(elementDOM); //dodajemy ksiazki za pomoca petli ppojedynczo  jako elemnty DOM do listy 
 
-    }
-  }
+    };
+  };
+
   render();
   initAction();
 
   favoriteBooks = [];
-  console.log(favoriteBooks)
+  //console.log(favoriteBooks)
+  
   function initAction (){
 
-    const booksListImage = document.querySelectorAll(select.panel.productsList + ' ' + select.panel.productsImage);
-    console.log(booksListImage)
+    const booksListImage = document.querySelectorAll(select.panel.productsImage);
+    
     for (let bookImage of booksListImage){
       bookImage.addEventListener('dblclick',function(event){
         event.preventDefault();
         bookImage.classList.add('favorite');
-        
+        //console.log(bookImage)
         favoriteBooks.push(bookImage);
+        
       });
    
+    };
 
-    }
+  };
 
-  }
-
-}
+};
 
