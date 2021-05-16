@@ -30,8 +30,8 @@
       //console.log('kontener z lista ksiazek:',menuContainer);
       menuContainer.appendChild(elementDOM); //dodajemy ksiazki za pomoca petli ppojedynczo  jako elemnty DOM do listy 
 
-    };
-  };
+    }
+  }
 
   render();
   initAction();
@@ -46,15 +46,15 @@
     for (let bookImage of booksListImage){
       bookImage.addEventListener('dblclick',function(event){
         event.preventDefault();
-        bookImage.classList.add('favorite');
-        //console.log(bookImage)
+        bookImage.classList.toggle('favorite');
+        console.log(bookImage)
         favoriteBooks.push(bookImage);
         
       });
    
-    };
+    }
 
-  };
+  }
 
-};
+}
 
