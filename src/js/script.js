@@ -41,14 +41,19 @@
   
   function initAction (){
 
-    const booksListImage = document.querySelectorAll(select.panel.productsImage); //zmajdujemy e html i przypisujemy do zmiennej selektor z image 
-    
-    for (let bookImage of booksListImage){
-      bookImage.addEventListener('dblclick',function(event){ //dodajemy nasluchiwacz dblclick za pomoca petli iterujacej po image ksiazek z funkcja calback 
-        event.preventDefault();//blokowanie domyslnego zachowania przegladarki 
-        bookImage.classList.toggle('favorite'); // dodano funkcję toggle ktora dodaje lub zabiera clase favorite
-        console.log(event)
-        favoriteBooks.push(bookImage);//wypychamy do tablicy favoriteBooks bookImage
+    //const booksListImage = document.querySelectorAll(select.panel.productsImage);
+    const productsListImage = document.querySelectorAll(select.panel.productsList)     
+
+    for (let bookImage of productsListImage){
+      bookImage.addEventListener('dblclick',function(event){
+        if(event.target.offsetParent.classList.contains('.book__image')){
+          
+          event.preventDefault();                                                     
+          bookImage.classList.toggle('favorite');                                       
+          console.log('click');
+        }                         
+        
+        favoriteBooks.push(bookImage);                                                
         
       });
    
