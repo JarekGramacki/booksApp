@@ -32,36 +32,27 @@
   initAction();
 
   favoriteBooks = [];
-  //console.log(favoriteBooks)
+  console.log(favoriteBooks)
 
   function initAction() {
-    //const booksListImage = document.querySelectorAll(select.panel.productsImage);
-    const productsPanel = document.querySelector(select.panel.productsList);
+    const booksList = document.querySelector(select.panel.productsList);
 
-    productsPanel.addEventListener("dblclick", function (event) {
+    booksList.addEventListener("dblclick", function (event) {
       const mouseTarget = event.target.offsetParent;
 
       if (mouseTarget.classList.contains("book__image")) {
         event.preventDefault();
 
-        const dataId = mouseTarget.getAttribute("data-id"); // wyciagamy atrybut data-id
-        const toggleResult = mouseTarget.classList.toggle("favorite"); // zapisujemy wynik toggle
+        const dataId = mouseTarget.getAttribute("data-id");
+        const toggleResult = mouseTarget.classList.toggle("favorite");
 
         if (toggleResult) {
-          // jezeli jest true - klasa zostala dodana (do classList)
           favoriteBooks.push(dataId);
-        } else {
-          // jezeli jest false - klasa została usunieta z classList
-          // sprawdzamy pozycje dataId w tablicy i go usuwamy
-          const indexOfDataId = favoriteBooks.indexOf(dataId);
-          favoriteBooks.splice(indexOfDataId, 1);
-        }
 
-        // if (mouseTarget.classList.toggle("favorite")){
-        //     favoriteBooks.push(mouseTarget.getAttribute("data-id"));
-        // }else{
-        //  favoriteBooks.splice(favoriteBooks.indexOf(mouseTarget.getAttribute("data-id")),1)
-        // }
+        } else {
+          const indexOff = favoriteBooks.indexOf(dataId);
+          favoriteBooks.splice(indexOff,1);
+        }
       }
     });
   }
