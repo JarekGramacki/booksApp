@@ -34,7 +34,7 @@
 
   favoriteBooks = [];
   filters = [];
-
+  console.log(filters);
   function initAction() {
     const booksList = document.querySelector(select.panel.productsList);
 
@@ -60,10 +60,11 @@
 
     filter.addEventListener("click", function (event) {
       const mouseFilterTarget = event.target.getAttribute("value");
-      if(mouseFilterTarget){
-        console.log(mouseFilterTarget);
+      if (mouseFilterTarget) {
+        filters.push(mouseFilterTarget);
+      } else {
+        filters.splice(filters.indexOf(mouseFilterTarget, 1));
       }
-      
     });
   }
 }
