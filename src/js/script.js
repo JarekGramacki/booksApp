@@ -59,8 +59,11 @@
     const filter = document.querySelector(select.panel.filtersForm);
 
     filter.addEventListener("click", function (event) {
+     
       const mouseFilterTarget = event.target.getAttribute("value");
-      if (mouseFilterTarget) {
+      const checked = event.target.checked; 
+      
+      if (checked) {
         filters.push(mouseFilterTarget);
       } else {
         filters.splice(filters.indexOf(mouseFilterTarget, 1));
