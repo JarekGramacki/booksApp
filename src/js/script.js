@@ -34,11 +34,11 @@
 
   render();
   initAction();
-  
+  filterBooks();
 
   favoriteBooks = [];
   filters = [];
-
+console.log(filters)
   function initAction() {
     const booksList = document.querySelector(select.panel.productsList);
 
@@ -62,8 +62,8 @@
 
     const filter = document.querySelector(select.panel.filtersForm);
 
-    filter.addEventListener("click", function (event) {
-      console.log(event)
+    filter.addEventListener("change", function (event) {
+     
       const mouseFilterTarget = event.target.getAttribute("value");
       const checked = event.target.checked;
 
@@ -75,11 +75,18 @@
     });
   }
 
-  function filterBooks(){
-    for(let bookFilter of dataSource.books){
-      const shouldBeHidden = false;
+
+  function filterBooks(filters){
+    for(const book of dataSource.books){
+      let shouldBeHidden = false;
       
-      for(let filter of filters)
+      for(let filter of filters){
+        if(!book.details[filter]){
+          shouldBeHidden = true;
+          break;
+        }
+      }
     }
   } 
+
 }
