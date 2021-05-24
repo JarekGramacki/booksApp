@@ -1,8 +1,8 @@
-
-
-
 {
   ("use strict");
+
+  favoriteBooks = [];
+  filters = [];
 
   const select = {
     templateOf: {
@@ -32,13 +32,6 @@
     }
   }
 
-  render();
-  initAction();
-  filterBooks();
-
-  favoriteBooks = [];
-  filters = [];
-console.log(filters)
   function initAction() {
     const booksList = document.querySelector(select.panel.productsList);
 
@@ -63,7 +56,6 @@ console.log(filters)
     const filter = document.querySelector(select.panel.filtersForm);
 
     filter.addEventListener("change", function (event) {
-     
       const mouseFilterTarget = event.target.getAttribute("value");
       const checked = event.target.checked;
 
@@ -72,21 +64,31 @@ console.log(filters)
       } else {
         filters.splice(filters.indexOf(mouseFilterTarget, 1));
       }
+
+      filterBooks();
     });
   }
 
-
-  function filterBooks(filters){
-    for(const book of dataSource.books){
+  function filterBooks() {
+    for (const book of dataSource.books) {
       let shouldBeHidden = false;
-      
-      for(let filter of filters){
-        if(!book.details[filter]){
+
+      for (let filter of filters) {
+        if (!book.details[filter]) {
           shouldBeHidden = true;
           break;
         }
       }
-    }
-  } 
 
+      const bookImgElement = document.querySelector('.book__image[data-id="' + book.id + '"]');
+      if (shouldBeHidden) {
+        bookImgElement.classList.add("hidden");
+      } else if (bookImgElement.classList.contains("hidden")) {
+        bookImgElement.classList.remove("hidden");
+      }
+    }
+  }
+
+  render();
+  initAction();  
 }
