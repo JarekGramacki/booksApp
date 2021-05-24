@@ -22,7 +22,12 @@
 
   function render() {
     for (let book of dataSource.books) {
-      const generatedHTML = menuProductTemplate(book); //tworzymy czysty kod html ktory jest polaczeniem szablonu template oraz danych z data.js
+
+      const rdata = { ratingWidth: "20", ratingBgc: "#b4df5b"};
+      book.ratingWidth = "50";
+      book.ratingBgc = "#b4df5b";
+
+      const generatedHTML = menuProductTemplate(book, rdata); //tworzymy czysty kod html ktory jest polaczeniem szablonu template oraz danych z data.js
       //console.log('kod html:',generatedHTML);
       const elementDOM = utils.createDOMFromHTML(generatedHTML); //na podstawie tego stworzenoego kodu html tworzymy jeden obiekt DOM (jedna ksiazke)
       //console.log('obiekt DOM:',elementDOM);
