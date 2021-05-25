@@ -23,11 +23,10 @@
   function render() {
     for (let book of dataSource.books) {
 
-      const rdata = { ratingWidth: "20", ratingBgc: "#b4df5b"};
-      book.ratingWidth = "50";
-      book.ratingBgc = "#b4df5b";
+      //const ratingBgc = determineRatingBgc(rating);
+     
 
-      const generatedHTML = menuProductTemplate(book, rdata); //tworzymy czysty kod html ktory jest polaczeniem szablonu template oraz danych z data.js
+      const generatedHTML = menuProductTemplate(book); //tworzymy czysty kod html ktory jest polaczeniem szablonu template oraz danych z data.js
       //console.log('kod html:',generatedHTML);
       const elementDOM = utils.createDOMFromHTML(generatedHTML); //na podstawie tego stworzenoego kodu html tworzymy jeden obiekt DOM (jedna ksiazke)
       //console.log('obiekt DOM:',elementDOM);
@@ -91,6 +90,21 @@
       } else if (bookImgElement.classList.contains("hidden")) {
         bookImgElement.classList.remove("hidden");
       }
+    }
+  }
+
+  function determineRatingBgc(rating){
+    if (rating < 6){
+      linear-gradient("to bottom,  #fefcea 0%, #f1da36 100%");
+    }
+    else if (rating > 6 &&  8 ){
+      linear-gradient("to bottom, #b4df5b 0%,#b4df5b 100%");
+    }
+    else if (rating > 8 &&  9){
+      linear-gradient("to bottom, #299a0b 0%, #299a0b 100%");
+    }
+    else if (Rating > 9){
+      linear-gradient("to bottom, #ff0084 0%,#ff0084 100%");
     }
   }
 
