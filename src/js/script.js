@@ -16,16 +16,33 @@
     },
   };
 
+  function determineRatingBgc(rating){
+
+    if (rating < 6){
+      return 'rating1';
+    }
+    else if (rating > 6 && rating <= 8 ){
+      return 'rating2';
+    }
+    else if (rating > 8 && rating <= 9){
+      return 'rating3';
+    }
+    else if (rating > 9){
+      return 'rating4';
+    }
+  }
+
+
   const menuProductTemplate = Handlebars.compile(
     document.querySelector(select.templateOf.templateBook).innerHTML
   );
 
-  function render() {
+  function render(){
     for (let book of dataSource.books) {
 
-      //const ratingBgc = determineRatingBgc(rating);
-     
-
+      const bookClass = determineRatingBgc(book.rating);
+      book.ratingWidth = book.rating * 10;
+      book.bookClass = bookClass;
       const generatedHTML = menuProductTemplate(book); //tworzymy czysty kod html ktory jest polaczeniem szablonu template oraz danych z data.js
       //console.log('kod html:',generatedHTML);
       const elementDOM = utils.createDOMFromHTML(generatedHTML); //na podstawie tego stworzenoego kodu html tworzymy jeden obiekt DOM (jedna ksiazke)
@@ -93,21 +110,8 @@
     }
   }
 
-  function determineRatingBgc(rating){
-    if (rating < 6){
-      linear-gradient("to bottom,  #fefcea 0%, #f1da36 100%");
-    }
-    else if (rating > 6 &&  8 ){
-      linear-gradient("to bottom, #b4df5b 0%,#b4df5b 100%");
-    }
-    else if (rating > 8 &&  9){
-      linear-gradient("to bottom, #299a0b 0%, #299a0b 100%");
-    }
-    else if (Rating > 9){
-      linear-gradient("to bottom, #ff0084 0%,#ff0084 100%");
-    }
-  }
-
+  
   render();
-  initAction();  
+  initAction(); 
+  
 }
