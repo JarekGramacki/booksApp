@@ -1,8 +1,6 @@
 {
   ("use strict");
 
-  favoriteBooks = [];
-  filters = [];
 
   const select = {
     templateOf: {
@@ -16,22 +14,6 @@
     },
   };
 
-  function determineRatingBgc(rating){
-
-    if (rating < 6){
-      return 'rating1';
-    }
-    else if (rating > 6 && rating <= 8 ){
-      return 'rating2';
-    }
-    else if (rating > 8 && rating <= 9){
-      return 'rating3';
-    }
-    else if (rating > 9){
-      return 'rating4';
-    }
-  }
-
 
   const menuProductTemplate = Handlebars.compile(
     document.querySelector(select.templateOf.templateBook).innerHTML
@@ -43,6 +25,7 @@
       const bookClass = determineRatingBgc(book.rating);
       book.ratingWidth = book.rating * 10;
       book.bookClass = bookClass;
+      
       const generatedHTML = menuProductTemplate(book); //tworzymy czysty kod html ktory jest polaczeniem szablonu template oraz danych z data.js
       //console.log('kod html:',generatedHTML);
       const elementDOM = utils.createDOMFromHTML(generatedHTML); //na podstawie tego stworzenoego kodu html tworzymy jeden obiekt DOM (jedna ksiazke)
@@ -110,8 +93,25 @@
     }
   }
 
-  
+  function determineRatingBgc(rating){
+
+    if (rating < 6){
+      return 'rating1';
+    }
+    else if (rating > 6 && rating <= 8 ){
+      return 'rating2';
+    }
+    else if (rating > 8 && rating <= 9){
+      return 'rating3';
+    }
+    else if (rating > 9){
+      return 'rating4';
+    }
+  }
+
   render();
   initAction(); 
   
+  favoriteBooks = [];
+  filters = [];
 }
