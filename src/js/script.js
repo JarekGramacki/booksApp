@@ -1,19 +1,21 @@
 {
-  ("use strict");
+  ('use strict');
 
 
   const select = {
     templateOf: {
-      templateBook: "#template-book",
+      templateBook: '#template-book',
     },
 
     panel: {
-      productsList: ".books-list",
-      productsImage: ".book__image",
-      filtersForm: ".filters",
+      productsList: '.books-list',
+      productsImage: '.book__image',
+      filtersForm: '.filters',
     },
   };
 
+  favoriteBooks = [];
+  filters = [];
 
   const menuProductTemplate = Handlebars.compile(
     document.querySelector(select.templateOf.templateBook).innerHTML
@@ -39,14 +41,14 @@
   function initAction() {
     const booksList = document.querySelector(select.panel.productsList);
 
-    booksList.addEventListener("dblclick", function (event) {
+    booksList.addEventListener('dblclick', function (event) {
       const mouseTarget = event.target.offsetParent;
 
-      if (mouseTarget.classList.contains("book__image")) {
+      if (mouseTarget.classList.contains('book__image')) {
         event.preventDefault();
 
-        const dataId = mouseTarget.getAttribute("data-id");
-        const toggleResult = mouseTarget.classList.toggle("favorite");
+        const dataId = mouseTarget.getAttribute('data-id');
+        const toggleResult = mouseTarget.classList.toggle('favorite');
 
         if (toggleResult) {
           favoriteBooks.push(dataId);
@@ -59,8 +61,8 @@
 
     const filter = document.querySelector(select.panel.filtersForm);
 
-    filter.addEventListener("change", function (event) {
-      const mouseFilterTarget = event.target.getAttribute("value");
+    filter.addEventListener('change', function (event) {
+      const mouseFilterTarget = event.target.getAttribute('value');
       const checked = event.target.checked;
 
       if (checked) {
@@ -86,9 +88,9 @@
 
       const bookImgElement = document.querySelector('.book__image[data-id="' + book.id + '"]');
       if (shouldBeHidden) {
-        bookImgElement.classList.add("hidden");
-      } else if (bookImgElement.classList.contains("hidden")) {
-        bookImgElement.classList.remove("hidden");
+        bookImgElement.classList.add('hidden');
+      } else if (bookImgElement.classList.contains('hidden')) {
+        bookImgElement.classList.remove('hidden');
       }
     }
   }
@@ -112,6 +114,43 @@
   render();
   initAction(); 
   
-  favoriteBooks = [];
-  filters = [];
+  class BooksList {
+    constructor() {
+     const thisBookList = this;
+      
+
+    }
+  
+    initData() {
+      const thisBookList = this;
+      
+      this.data = dataSource.books;
+    }
+  
+    getElements() {
+      const thisBookList = this;
+      
+    }
+  
+    initActions() {
+      const thisBookList = this;
+      
+    }
+  
+    filterBooks() {
+      const thisBookList = this;
+      
+    }
+  
+    determineRatingBgc() {
+      const thisBookList = this;
+      
+    }
+  
+  }
+  
+  const app = new BooksList();
+
 }
+
+
