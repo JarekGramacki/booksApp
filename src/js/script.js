@@ -125,19 +125,27 @@
   class BooksList {
     constructor() {
      const thisBookList = this;
-    
-     thisBookList.render();   //wywolujemy funkcje w ten sposob poniewaz tutaj this wskazuje na objekt this wskazuje na funkcje render
 
+     thisBookList.favoriteBooks = [];
+     thisBookList.filters = [];
+    
+     thisBookList.initData();
+     thisBookList.render(); 
+     thisBookList.getElements();  //wywolujemy funkcje w ten sposob poniewaz tutaj this wskazuje na objekt this wskazuje na funkcje render
+     thisBookList.initActions(); 
     }
   
     initData() {
       const thisBookList = this;
       
-      this.data = dataSource.books;
+      thisBookList.data = dataSource.books;
 
     }
+    
     render(){
-      for (let book of dataSource.books) {
+      const thisBookList = this;
+
+      for (let book of thisBookList.data) {
   
         const bookClass = determineRatingBgc(book.rating);
         book.ratingWidth = book.rating * 10;
@@ -152,11 +160,13 @@
         menuContainer.appendChild(elementDOM); //dodajemy ksiazki za pomoca petli ppojedynczo  jako elemnty DOM do listy
       }
     }
+
     getElements() {
       const thisBookList = this;
 
-      thisBookList.productsList = thisBookList.element.querySelector(select.panel.productsList);
-      thisBookList.filtersForm = thisBookList.element.querySelector(select.panel.filtersForm);
+      thisBookList.productsList = document.querySelector(select.panel.productsList);
+      thisBookList.filtersForm = document.querySelector(select.panel.filtersForm);
+      
     }
   
     initActions() {
@@ -198,12 +208,41 @@
   
     filterBooks() {
       const thisBookList = this;
+
+      for (const book of dataSource.books) {
+        let shouldBeHidden = false;
+  
+        for (let filter of filters) {
+          if (!book.details[filter]) {
+            shouldBeHidden = true;
+            break;
+          }
+        }
+        const bookImgElement = document.querySelector('.book__image[data-id="' + book.id + '"]');
+        if (shouldBeHidden) {
+          thisBookList.bookImgElement.classList.add('hidden');
+        } else if (thisBookList.bookImgElement.classList.contains('hidden')) {
+          thisBookList.bookImgElement.classList.remove('hidden');
+        }
+      }
       
     }
   
-    determineRatingBgc() {
+    determineRatingBgc(rating) {
       const thisBookList = this;
-      
+
+      if (rating < 6){
+        return 'rating1';
+      }
+      else if (rating > 6 && rating <= 8 ){
+        return 'rating2';
+      }
+      else if (rating > 8 && rating <= 9){
+        return 'rating3';
+      }
+      else if (rating > 9){
+        return 'rating4';
+      }
     }
   
   }
