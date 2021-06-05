@@ -17,8 +17,7 @@
   favoriteBooks = [];
   filters = [];
 
-  const menuProductTemplate = Handlebars.compile(
-    document.querySelector(select.templateOf.templateBook).innerHTML
+  const menuProductTemplate = Handlebars.compile(document.querySelector(select.templateOf.templateBook).innerHTML
   );
 
   function render(){
@@ -116,18 +115,14 @@
   
 
 
-
-
-
-
-
-
   class BooksList {
     constructor() {
      const thisBookList = this;
+     //console.log('obiekt ze wszystkimi danymi i funkcjami:',thisBookList)
 
      thisBookList.favoriteBooks = [];
      thisBookList.filters = [];
+     
     
      thisBookList.initData();
      thisBookList.render(); 
@@ -139,6 +134,7 @@
       const thisBookList = this;
       
       thisBookList.data = dataSource.books;
+      //console.log('dane do użycia:', thisBookList.data)
 
     }
     
@@ -163,10 +159,12 @@
 
     getElements() {
       const thisBookList = this;
-
+     
       thisBookList.productsList = document.querySelector(select.panel.productsList);
       thisBookList.filtersForm = document.querySelector(select.panel.filtersForm);
+      thisBookList.productsImage = document.querySelector(select.panel.productsImage);
       
+     
     }
   
     initActions() {
@@ -207,7 +205,7 @@
     }
   
     filterBooks() {
-      const thisBookList = this;
+      
 
       for (const book of dataSource.books) {
         let shouldBeHidden = false;
@@ -219,17 +217,18 @@
           }
         }
         const bookImgElement = document.querySelector('.book__image[data-id="' + book.id + '"]');
+        
         if (shouldBeHidden) {
-          thisBookList.bookImgElement.classList.add('hidden');
-        } else if (thisBookList.bookImgElement.classList.contains('hidden')) {
-          thisBookList.bookImgElement.classList.remove('hidden');
+          bookImgElement.classList.add('hidden');
+        } else if (bookImgElement.classList.contains('hidden')) {
+          bookImgElement.classList.remove('hidden');
         }
       }
       
     }
   
     determineRatingBgc(rating) {
-      const thisBookList = this;
+      
 
       if (rating < 6){
         return 'rating1';
