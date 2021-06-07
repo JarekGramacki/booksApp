@@ -9,7 +9,6 @@
 
     panel: {
       productsList: '.books-list',
-      productsImage: '.book__image',
       filtersForm: '.filters',
     },
   };
@@ -20,105 +19,11 @@
   const menuProductTemplate = Handlebars.compile(document.querySelector(select.templateOf.templateBook).innerHTML
   );
 
-  function render(){
-    for (let book of dataSource.books) {
-
-      const bookClass = determineRatingBgc(book.rating);
-      book.ratingWidth = book.rating * 10;
-      book.bookClass = bookClass;
-      
-      const generatedHTML = menuProductTemplate(book); //tworzymy czysty kod html ktory jest polaczeniem szablonu template oraz danych z data.js
-      //console.log('kod html:',generatedHTML);
-      const elementDOM = utils.createDOMFromHTML(generatedHTML); //na podstawie tego stworzenoego kodu html tworzymy jeden obiekt DOM (jedna ksiazke)
-      //console.log('obiekt DOM:',elementDOM);
-      const menuContainer = document.querySelector(select.panel.productsList); //szukamy miejsca przy pomocy selektora gdzie dorzucic liste ksiazek
-      //console.log('kontener z lista ksiazek:',menuContainer);
-      menuContainer.appendChild(elementDOM); //dodajemy ksiazki za pomoca petli ppojedynczo  jako elemnty DOM do listy
-    }
-  }
-
-  function initAction() {
-    const booksList = document.querySelector(select.panel.productsList);
-
-    booksList.addEventListener('dblclick', function (event) {
-      const mouseTarget = event.target.offsetParent;
-
-      if (mouseTarget.classList.contains('book__image')) {
-        event.preventDefault();
-
-        const dataId = mouseTarget.getAttribute('data-id');
-        const toggleResult = mouseTarget.classList.toggle('favorite');
-
-        if (toggleResult) {
-          favoriteBooks.push(dataId);
-        } else {
-          const indexOff = favoriteBooks.indexOf(dataId);
-          favoriteBooks.splice(indexOff, 1);
-        }
-      }
-    });
-
-    const filter = document.querySelector(select.panel.filtersForm);
-
-    filter.addEventListener('change', function (event) {
-      const mouseFilterTarget = event.target.getAttribute('value');
-      const checked = event.target.checked;
-
-      if (checked) {
-        filters.push(mouseFilterTarget);
-      } else {
-        filters.splice(filters.indexOf(mouseFilterTarget, 1));
-      }
-
-      filterBooks();
-    });
-  }
-
-  function filterBooks() {
-    for (const book of dataSource.books) {
-      let shouldBeHidden = false;
-
-      for (let filter of filters) {
-        if (!book.details[filter]) {
-          shouldBeHidden = true;
-          break;
-        }
-      }
-
-      const bookImgElement = document.querySelector('.book__image[data-id="' + book.id + '"]');
-      if (shouldBeHidden) {
-        bookImgElement.classList.add('hidden');
-      } else if (bookImgElement.classList.contains('hidden')) {
-        bookImgElement.classList.remove('hidden');
-      }
-    }
-  }
-
-  function determineRatingBgc(rating){
-
-    if (rating < 6){
-      return 'rating1';
-    }
-    else if (rating > 6 && rating <= 8 ){
-      return 'rating2';
-    }
-    else if (rating > 8 && rating <= 9){
-      return 'rating3';
-    }
-    else if (rating > 9){
-      return 'rating4';
-    }
-  }
-
-  render();
-  initAction(); 
-  
-
 
   class BooksList {
     constructor() {
      const thisBookList = this;
-     //console.log('obiekt ze wszystkimi danymi i funkcjami:',thisBookList)
+     //console.log('obiekt ze wszystkimi danymi i funkcjami:', thisBookList)
 
      thisBookList.favoriteBooks = [];
      thisBookList.filters = [];
@@ -143,7 +48,7 @@
 
       for (let book of thisBookList.data) {
   
-        const bookClass = determineRatingBgc(book.rating);
+        const bookClass = thisBookList.determineRatingBgc(book.rating);
         book.ratingWidth = book.rating * 10;
         book.bookClass = bookClass;
         
@@ -161,10 +66,7 @@
       const thisBookList = this;
      
       thisBookList.productsList = document.querySelector(select.panel.productsList);
-      thisBookList.filtersForm = document.querySelector(select.panel.filtersForm);
-      thisBookList.productsImage = document.querySelector(select.panel.productsImage);
-      
-     
+      thisBookList.filtersForm = document.querySelector(select.panel.filtersForm);     
     }
   
     initActions() {
@@ -199,7 +101,7 @@
             filters.splice(filters.indexOf(mouseFilterTarget, 1));
           }
     
-          filterBooks();
+          thisBookList.filterBooks();
         });
       
     }
@@ -247,7 +149,8 @@
   }
   
   const app = new BooksList();
-
+//console.log(app)  
+  
 }
 
 
